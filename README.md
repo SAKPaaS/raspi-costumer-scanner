@@ -62,8 +62,37 @@ sudo airmon-ng stop wlan0mon
 ```
 
 
-#### Ressources
+##### Ressources
  * [aircrack newbie guide](https://www.aircrack-ng.org/doku.php?id=newbie_guide)
  * [aircrack tut](https://www.aircrack-ng.org/doku.php?id=cracking_wpa&s[]=passive&s[]=mode) -> Step 1 - Start the wireless interface in monitor mode
  * [wireshark tut with detailed instructions to switch to monitor mode](https://wiki.wireshark.org/CaptureSetup/WLAN#Monitor_mode)
  * [a python-based monitoring setup on a raspberry](https://www.jbrandsma.com/news/2018/01/02/catching-wifi-probes-using-a-raspberry-pi/)   
+ 
+ 
+#### Monitoring of packets 
+
+With the monitoring device, we can now check the packets send from other devices. Basically, we can read the contents
+ of this package to determine whether this is a client request e.g. a mobile phone and retrieve its MAC address, a
+  unique id. With this info, we can determine the amount of active wifi devices. 
+  
+##### Install [scapy](https://scapy.readthedocs.io/en/latest/introduction.html)
+
+Here with conda
+  ```bash
+conda create -n raspi-sniff python=3. 
+conda activate raspi-sniff
+conda install -c conda-forge scapy
+```
+
+##### Detect client packages
+
+In the communication protocol between clients and access points (WIFI networks), packets can be either management
+, control or data frames. The management type packets are used by clients to look for access points, associate to and
+ disassociate from them. At the same time, the management type is used by the access points to reply to searching
+  clients. Via scapy, this information can be obtained by checking the packet type (which frame
+  ) and the subtype (which action, client or AP). 
+  
+* [packet frames](https://wifibond.com/2017/07/20/understanding-of-802-11-management-frames/)
+* [management frame](https://documentation.meraki.com/MR/WiFi_Basics_and_Best_Practices/802.11_Association_Process_Explained)
+* [packet structure scapy](https://scapy.readthedocs.io/en/latest/api/scapy.layers.dot11.html)
+* [a short script to detect clients and save them in a list](https://www.sans.org/blog/special-request-wireless-client-sniffing-with-scapy/)
