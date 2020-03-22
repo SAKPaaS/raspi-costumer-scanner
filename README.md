@@ -1,3 +1,5 @@
+
+
 ## Current state
 
 ### Done:
@@ -8,7 +10,8 @@
 - Main problem: The wifi interface has to be in the monitor state to sniff for devices, but needs to switch back to
  managed to communicate its results to the the backend. Simple solution would be to do some system calls from python
   to start and stop monitoring. These system calls require sudo rights, that is either there is a dedicated user with
-   no password required or a little bit more subprocess handling is required. 
+   no password required or a little bit more subprocess handling is required. Another cool solution would be to do
+    the monitoring via WIFI and send the requests over another network interface. 
 - Major issues: 
     * I did not manage to achieve a nice interruption of the sniffing process, should be moved in a separate thread
     , see below.
