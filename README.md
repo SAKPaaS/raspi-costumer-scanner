@@ -12,6 +12,14 @@
 1. Download rasbian [here](https://www.raspberrypi.org/downloads/raspbian/)
 2. Flash rasbian to SD card [here](https://www.raspberrypi.org/documentation/installation/installing-images/)
 3. Prepare automatic connection to WIFI and enable SSH [here](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
+4. Insert SD in Raspberry and connect power supply. There is a red LED, which should turn on. If this red LED blinks
+, there might be problems with the power supply or the kernel image. 
+5. Ssh into raspberry ``` ssh pi@<IP>```  Find the IP address via getting the own
+  IP `hostname -I`, then pinging all available devices `nmap -sn 192.168.0.1/24`, then run `sudo arp -a`and look for
+   entries starting with `b8:27:eb:...` (The automatic WIFI connection did not work for
+ me, but connecting to the router via LAN allowed to connect to the raspbi).
+ 
+
 
 
 ### Monitoring of wifi capable devices
@@ -75,6 +83,10 @@ To stop the monitoring, run (might take a moment until wifi works again)
 sudo airmon-ng stop wlan0mon
 ```
 
+##### Edits for Raspberry Pi
+
+The in-build wireless cannot be switched to monitor mode with the canonical driver. But an alternative driver is
+ [Nexmon](https://pimylifeup.com/raspberry-pi-nexmon/). 
 
 ##### Ressources
  * [aircrack newbie guide](https://www.aircrack-ng.org/doku.php?id=newbie_guide)
