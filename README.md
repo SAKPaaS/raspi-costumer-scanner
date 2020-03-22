@@ -30,7 +30,7 @@ sudo iwconfig
 wlan0     IEEE 802.11  ESSID:"..."  
           Mode:Managed  Frequency:2.437 GHz  Access Point: ...
 ```
-Now switch the mode to monitor via 
+Now switch the mode to monitor via (attention: no access to wifi anymore)
 ```bash
 sudo airmon-ng start wlan0
 PHY	Interface	Driver		Chipset
@@ -56,8 +56,10 @@ wlan0mon  IEEE 802.11  Mode:Monitor  Frequency:2.457 GHz  Tx-Power=0 dBm
           Power Management:on
 ```
 
-
-
+To stop the monitoring, run (might take a moment until wifi works again)
+```bash
+sudo airmon-ng stop wlan0mon
+```
 
 
 #### Ressources
