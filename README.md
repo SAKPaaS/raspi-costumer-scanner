@@ -1,5 +1,19 @@
 ## Background
 
+### Setup headless Raspberry Pi
+
+#### Requirements
+* Raspberry Pi 3, Model B
+* SD Card with (at least 4GB to hold the rasbian img)
+* a laptop with internet access
+
+#### Steps
+
+1. Download rasbian [here](https://www.raspberrypi.org/downloads/raspbian/)
+2. Flash rasbian to SD card [here](https://www.raspberrypi.org/documentation/installation/installing-images/)
+3. Prepare automatic connection to WIFI and enable SSH [here](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
+
+
 ### Monitoring of wifi capable devices
   
 #### Switching wlan interface to monitoring mode
