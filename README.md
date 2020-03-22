@@ -1,3 +1,24 @@
+## Current state
+
+### Done:
+- detect and count number of close-by client devices: based on aircrack-ng and scapy
+- send occupancy post request to REST API
+
+### Open:
+- Main problem: The wifi interface has to be in the monitor state to sniff for devices, but needs to switch back to
+ managed to communicate its results to the the backend. Simple solution would be to do some system calls from python
+  to start and stop monitoring. These system calls require sudo rights, that is either there is a dedicated user with
+   no password required or a little bit more subprocess handling is required. 
+- Major issues: 
+    * I did not manage to achieve a nice interruption of the sniffing process, should be moved in a separate thread
+    , see below.
+- Minor issues:
+    * move out configuration file
+    * create nice argument parsing
+    * refactor
+    * error handling
+    
+
 ## Background
 
 ### Setup headless Raspberry Pi
@@ -18,6 +39,8 @@
   IP `hostname -I`, then pinging all available devices `nmap -sn 192.168.0.1/24`, then run `sudo arp -a`and look for
    entries starting with `b8:27:eb:...` (The automatic WIFI connection did not work for
  me, but connecting to the router via LAN allowed to connect to the raspbi).
+ 6. To proceed, follow the steps below to set the wireless interface to monitoring mode. Note that the default user
+  pi is already in [the sudo group](https://www.elektronik-kompendium.de/sites/raspberry-pi/2002231.htm) 
  
 
 
@@ -85,7 +108,7 @@ sudo airmon-ng stop wlan0mon
 
 ##### Edits for Raspberry Pi
 
-The in-build wireless cannot be switched to monitor mode with the canonical driver. But an alternative driver is
+The in-built wireless cannot be switched to monitor mode with the canonical driver. But an alternative driver is
  [Nexmon](https://pimylifeup.com/raspberry-pi-nexmon/). 
 
 ##### Ressources
@@ -122,3 +145,7 @@ In the communication protocol between clients and access points (WIFI networks),
 * [management frame](https://documentation.meraki.com/MR/WiFi_Basics_and_Best_Practices/802.11_Association_Process_Explained)
 * [packet structure scapy](https://scapy.readthedocs.io/en/latest/api/scapy.layers.dot11.html)
 * [a short script to detect clients and save them in a list](https://www.sans.org/blog/special-request-wireless-client-sniffing-with-scapy/)
+
+##### TODO: Get sniffing into a separate thread for proper shutdown
+
+https://blog.skyplabs.net/2018/03/01/python-sniffing-inside-a-thread-with-scapy/
